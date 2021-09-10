@@ -1,4 +1,4 @@
 
-function cock() {
-    console.log("nice cock bro")
+function nothing() {
+    console.log("this does nothing")
 }

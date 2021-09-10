@@ -1,6 +1,4 @@
 use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse};
-use actix_files::NamedFile;
-use std::path::PathBuf;
 use askama::Template;
 
 #[derive(Template)]
