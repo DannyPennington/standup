@@ -12,11 +12,13 @@ async fn index(_req: HttpRequest) -> Result<HttpResponse> {
     let html = IndexTemplate {
         names: people
     }.render().unwrap();
+    println!("Serving html...");
     Ok(HttpResponse::Ok().content_type("text/html").body(html))
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    println!("Server starting...");
     HttpServer::new(||
         App::new()
             .service(web::resource("/").route(web::get().to(index)))
