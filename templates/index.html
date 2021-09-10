@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Standup</title>
+    <link rel="stylesheet" media="screen" href="/stylesheets/main.css">
 </head>
 <script src="/js/standup.js"></script>
 <body>
-    <h1>Yay html</h1>
-    <ul>
-        {% for x in name %}
-            <li>{{ x }}</li>
+    <h1>Neighbourhood Watch standup</h1>
+    <div class="name-box">
+        {% for name in names %}
+            <button class="button" id='{{ name }}' onclick="toggleState('{{ name }}')">{{ name }}</button>
         {% endfor %}
-    </ul>
-    <button onclick="nothing()">Does nothing</button>
+    </div>
 
 </body>
 </html>

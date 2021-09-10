@@ -13,3 +13,7 @@ askama = "0.9"
 
 [build-dependencies]
 askama = "0.9"
+
+[[bin]]
+name = "standup"
+path = "src/main.rs"

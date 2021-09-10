@@ -4,13 +4,13 @@ use askama::Template;
 #[derive(Template)]
 #[template(path = "index.html")]
 struct IndexTemplate<'a> {
-    name: Vec<&'a str>
+    names: Vec<&'a str>
 }
 
 async fn index(_req: HttpRequest) -> Result<HttpResponse> {
-    let people: Vec<&str> = vec!["Danny", "Ewan", "Dan"];
+    let people: Vec<&str> = vec!["Danny", "Jason", "Jeremy"];
     let html = IndexTemplate {
-        name: people
+        names: people
     }.render().unwrap();
     Ok(HttpResponse::Ok().content_type("text/html").body(html))
 }
@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(web::resource("/").route(web::get().to(index)))
             .service(actix_files::Files::new("/js", "./js").show_files_listing())
+            .service(actix_files::Files::new("/stylesheets", "./stylesheets").show_files_listing())
     )
         .bind("127.0.0.1:4200")?
         .run()
