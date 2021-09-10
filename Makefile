@@ -1,7 +1,7 @@
 BACKEND_VERSION=$(shell sh -c "cd ../standup; cargo get version --full")
 
 build: clean
-            docker build --no-cache -t standup:$(BACKEND_VERSION)
+            docker build --no-cache -t standup:$(BACKEND_VERSION) .
             docker tag standup:$(BACKEND_VERSION)
 
 clean:
