@@ -12,6 +12,10 @@ FROM debian:buster-slim
 
 COPY --from=builder /usr/local/cargo/bin/standup /usr/local/bin/standup
 
-EXPOSE 4200/tcp
+COPY ./assets /usr/local/bin/assets
 
-CMD ["bash", "-c", "/usr/local/bin/standup"]
+EXPOSE 4200
+
+WORKDIR /usr/local/bin
+
+CMD ["bash", "-c", "standup"]
