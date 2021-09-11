@@ -22,10 +22,10 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(||
         App::new()
             .service(web::resource("/").route(web::get().to(index)))
-            .service(actix_files::Files::new("/js", "./js").show_files_listing())
-            .service(actix_files::Files::new("/stylesheets", "./stylesheets").show_files_listing())
+            .service(actix_files::Files::new("/js", "./assets/js").show_files_listing())
+            .service(actix_files::Files::new("/stylesheets", "./assets/stylesheets").show_files_listing())
     )
-        .bind("127.0.0.1:4200")?
+        .bind("0.0.0.0:4200")?
         .run()
         .await
 }
