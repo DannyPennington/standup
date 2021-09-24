@@ -8,9 +8,13 @@
 <script src="/js/standup.js"></script>
 <body>
     <h1>Neighbourhood Watch standup</h1>
-    <div class="name-box">
-        {% for name in names %}
-            <button class="button" id='{{ name }}' onclick="toggleState('{{ name }}')">{{ name }}</button>
+    <div class="name-box" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+        {% for index in 0..grouped_names.len() %}
+            <div id="group{{ index.to_string() }}" style="display:flex; flex-direction: column; justify-content: center;">
+                {% for name in grouped_names[index] %}
+                    <button class="button" id='{{ name }}' onclick="toggleState('{{ name }}')">{{ name }}</button>
+                {% endfor %}
+            </div>
         {% endfor %}
     </div>
 
