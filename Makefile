@@ -14,5 +14,7 @@ run:
 
 start: build run
 
+restart: rebuild run
+
 prune:
 	docker container prune --filter "label=name=standup"
