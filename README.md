@@ -5,7 +5,7 @@ It uses a simple webserver built on Rust's actix-web library and Askama for html
 
 Names are hardcoded in the `main.rs` file currently as this is an MVP. Should be moved to a config file or whatever
 ___
-#Prerequisites:
+# Prerequisites:
 - `make` utility (available by default on unix-like operating systems)
 - Docker (easily installed from https://www.docker.com/get-started or your package manager of choice)
 
