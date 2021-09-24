@@ -1,7 +1,5 @@
 FROM rust:1.55 as builder
 
-LABEL maintainer="dannypen@gmail.com"
-
 WORKDIR /usr/src/standup
 
 COPY . .
@@ -9,6 +7,10 @@ COPY . .
 RUN cargo install --path .
 
 FROM debian:buster-slim
+
+LABEL maintainer="dannypen@gmail.com"
+
+LABEL name="standup"
 
 COPY --from=builder /usr/local/cargo/bin/standup /usr/local/bin/standup
 

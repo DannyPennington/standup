@@ -1,5 +1,6 @@
 use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse};
 use askama::Template;
+use standup::helpers::{role_grouping};
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -8,19 +9,17 @@ struct IndexTemplate<'a> {
 }
 
 async fn index(_req: HttpRequest) -> Result<HttpResponse> {
-    let people = vec!["Danny", "Jason", "Jeremy", "Sarah", "Brian", "Baz", "Jen", "Kate", "Glorbo"];
-    let mut grouped_people: Vec<Vec<&str>> = Vec::new();
-    let mut buffer = Vec::new();
-    for index in 0..people.len() {
-        buffer.push(people[index]);
-        if buffer.len() == 4 || index == people.len() - 1 {
-            grouped_people.push(buffer.clone());
-            buffer.clear();
-        }
-    }
+    // Add people to the relevant list here to add them to the board
+    let devs = vec!["Danny", "Ewan", "Dan", "Sarthak", "Don", "Sean", "Abdi"];
+    let design = vec!["Helen", "Sam", "Shail", "Jacob"];
+    let admin = vec!["Alok", "Maria"];
+
+    let people = vec![devs, design, admin];
+    let grouped_people = role_grouping(people);
     let html = IndexTemplate {
         grouped_names: grouped_people
     }.render().unwrap();
+
     println!("Serving html...");
     Ok(HttpResponse::Ok().content_type("text/html").body(html))
 }

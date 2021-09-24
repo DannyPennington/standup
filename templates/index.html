@@ -8,7 +8,7 @@
 <script src="/js/standup.js"></script>
 <body>
     <h1>Neighbourhood Watch standup</h1>
-    <div class="name-box" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+    <div class="name-box">
         {% for index in 0..grouped_names.len() %}
             <div id="group{{ index.to_string() }}" style="display:flex; flex-direction: column; justify-content: center;">
                 {% for name in grouped_names[index] %}
