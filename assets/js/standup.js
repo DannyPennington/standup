@@ -1,6 +1,7 @@
 
-function nothing() {
-    console.log("this does nothing")
+function reset() {
+    const active = document.querySelectorAll('.on');
+    active.forEach(el => el.classList.remove('on'));
 }
 
 function toggleState(elementId) {
