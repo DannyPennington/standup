@@ -27,7 +27,7 @@ async fn index(_req: HttpRequest) -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let port = env::var("PORT").unwrap_or(String("4200"));
+    let port = env::var("PORT").unwrap_or("4200".to_owned());
     println!("Server starting on port {} ...", port);
     HttpServer::new(||
         App::new()
@@ -35,7 +35,7 @@ async fn main() -> std::io::Result<()> {
             .service(actix_files::Files::new("/js", "./assets/js").show_files_listing())
             .service(actix_files::Files::new("/stylesheets", "./assets/stylesheets").show_files_listing())
     )
-        .bind("0.0.0.0:" + port)?
+        .bind("0.0.0.0:".to_owned() + &*port)?
         .run()
         .await
 }
