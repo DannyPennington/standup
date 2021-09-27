@@ -1,6 +1,7 @@
 use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse};
 use askama::Template;
 use standup::helpers::{role_grouping};
+use std::env;
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -26,14 +27,15 @@ async fn index(_req: HttpRequest) -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("Server starting...");
+    let port = env::var("PORT").unwrap_or(String("4200"));
+    println!("Server starting on port {} ...", port);
     HttpServer::new(||
         App::new()
             .service(web::resource("/").route(web::get().to(index)))
             .service(actix_files::Files::new("/js", "./assets/js").show_files_listing())
             .service(actix_files::Files::new("/stylesheets", "./assets/stylesheets").show_files_listing())
     )
-        .bind("0.0.0.0:4200")?
+        .bind("0.0.0.0:" + port)?
         .run()
         .await
 }
