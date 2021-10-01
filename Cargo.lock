@@ -1543,7 +1543,7 @@ dependencies = [
 
 [[package]]
 name = "standup"
-version = "1.1.1"
+version = "1.1.2"
 dependencies = [
  "actix-files",
  "actix-web",

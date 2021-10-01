@@ -25,14 +25,12 @@ pub fn role_grouping(people: Vec<Vec<String>>) -> Vec<Vec<String>> {
 
 pub fn determine_config() -> Result<Config, ConfigError> {
     let mut config = config::Config::default();
-    /*
+
     let args: Vec<String> = std::env::args().collect();
     let name = match args.len() {
-        0 | 1 => {"nw"},
-        _ => {&args[1]}
+        0 | 1 => {env::var("TEAM").unwrap_or_else(|_| "nw".to_owned())},
+        _ => {args[1].to_owned()}
     };
-     */
-    let name = env::var("TEAM").unwrap_or_else(|_| "nw".to_owned());
     let base = "./config/";
     config.merge(config::File::with_name(&*(base.to_owned() + &name)))?;
     Ok(config)
