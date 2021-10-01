@@ -1,0 +1,5 @@
+devs   = ["Dan", "Danny", "Don", "Ewan", "Sarthak", "Sean", "Abdi"]
+design = ["Helen", "Jacob", "Sam", "Shail"]
+admin  = ["Alok", "Maria"]
+
+team_name = "Neighbourhood Watch"

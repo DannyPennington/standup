@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Standup</title>
+    <title> {{ team_name }} standup</title>
     <link rel="stylesheet" media="screen" href="/stylesheets/main.css">
 </head>
 <script src="/js/standup.js"></script>
 <body>
-    <h1>Neighbourhood Watch standup</h1>
+    <div id="heading" style="display: flex; justify-content: space-evenly; align-items: center;">
+        <h1> {{ team_name }} standup</h1>
+        <img src="{{ image_path }}" style="width: 200px;">
+    </div>
     <div class="name-box">
         {% for index in 0..grouped_names.len() %}
             <div id="group{{ index.to_string() }}" style="display:flex; flex-direction: column; justify-content: center;">

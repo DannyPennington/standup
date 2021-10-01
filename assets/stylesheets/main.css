@@ -83,24 +83,22 @@ ol, ul {
 		color: #777777 !important;
 	}
 
-
-		input[type="submit"]:active,
-		input[type="reset"]:active,
-		input[type="button"]:active,
-		button:active,
-		.button:active {
-			box-shadow: inset 0 0 0 2px #7bd2ed;
-			color: #7bd2ed !important;
-			background-color: rgba(123, 210, 237, 0.25);
-		}
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	.active {
+		box-shadow: inset 0 0 0 3px #48cef7 !important;
+		color: #278bab !important;
+		background-color: rgba(56, 208, 255, 0.3) !important;
+	}
 
     input[type="submit"],
     input[type="reset"],
     input[type="button"],
     .on {
-        box-shadow: inset 0 0 0 3px #26712f;
-        color: #3e3e3e !important;
-        background-color: rgba(53, 166, 66, 0.5);
+        box-shadow: inset 0 0 0 3px #9ed1a4;
+        color: #3e3e3e;
+        background-color: rgb(178, 237, 185, 0.5);
     }
 
     @media screen and (max-width: 800px) {
