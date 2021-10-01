@@ -1,4 +1,5 @@
 use config::{Config, ConfigError};
+use std::env;
 
 pub fn basic_grouping(people: Vec<String>) -> Vec<Vec<String>> {
     let mut grouped_people: Vec<Vec<String>> = vec![];
@@ -23,12 +24,15 @@ pub fn role_grouping(people: Vec<Vec<String>>) -> Vec<Vec<String>> {
 }
 
 pub fn determine_config() -> Result<Config, ConfigError> {
-    let args: Vec<String> = std::env::args().collect();
     let mut config = config::Config::default();
+    /*
+    let args: Vec<String> = std::env::args().collect();
     let name = match args.len() {
-        0 | 1 | 2 => {"nw"},
+        0 | 1 => {"nw"},
         _ => {&args[1]}
     };
-    config.merge(config::File::with_name(name))?;
+     */
+    let name = env::var("TEAM").unwrap_or_else(|_| "nw".to_owned());
+    config.merge(config::File::with_name(&name))?;
     Ok(config)
 }
