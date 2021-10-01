@@ -1,46 +1,35 @@
-use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse};
+use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse, error};
 use askama::Template;
 use standup::helpers::{role_grouping, determine_config};
 use std::env;
+use config::ConfigError;
 
 #[derive(Template)]
 #[template(path = "index.html")]
-struct IndexTemplate<'a> {
-    grouped_names: Vec<Vec<&'a str>>
+struct IndexTemplate {
+    grouped_names: Vec<Vec<String>>
 }
 
 async fn index(_req: HttpRequest) -> Result<HttpResponse> {
 
-    let config = determine_config();
-    /*
-    let mut devs: Vec<Value> = config.get_array("devs").unwrap();
-    let mut design: Vec<Value> = config.get_array("design").unwrap();
-    let mut admin: Vec<Value> = config.get_array("admin").unwrap();
-    let mut new_devs: Vec<String> = vec![];
-    let mut new_design: Vec<String> = vec![];
-    let mut new_admin: Vec<String> = vec![];
+    let handler = |e: ConfigError| {
+        error::ErrorInternalServerError(e.to_string())
+    };
 
-    for item in &mut devs {
-        new_devs.push(item.into_str().unwrap());
+    let config = determine_config().map_err(handler)?;
+    let mut groups = vec![];
+    for &group in &["devs", "design", "admin"] {
+        let thing: Vec<String> = config.get_array(group).map_err(handler)?
+            .into_iter().map(|x| x.into_str().unwrap()).collect();
+        groups.push(thing)
     }
 
-    for item in &mut design {
-        new_design.push(item.into_str().unwrap());
-    }
-
-    for item in &mut admin {
-        new_admin.push(item.into_str().unwrap());
-    }
-     */
-
-    let devs: Vec<&str> = config.get_array("devs").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect::<Vec<&str>>();
-    let design: Vec<&str> = config.get_array("design").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect();
-    let admin: Vec<&str> = config.get_array("admin").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect();
-
-    let grouped_people = role_grouping(vec![devs, design, admin]);
+    let grouped_people = role_grouping(groups);
     let html = IndexTemplate {
         grouped_names: grouped_people
-    }.render().unwrap();
+    }.render().map_err(|e| {
+        error::ErrorInternalServerError(e.to_string())
+    })?;
 
     println!("Serving html...");
     Ok(HttpResponse::Ok().content_type("text/html").body(html))
@@ -48,7 +37,7 @@ async fn index(_req: HttpRequest) -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let port = env::var("PORT").unwrap_or("4200".to_owned());
+    let port = env::var("PORT").unwrap_or_else(|_| "4200".to_owned());
     println!("Server starting on port {} ...", port);
     HttpServer::new(||
         App::new()
