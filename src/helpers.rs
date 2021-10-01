@@ -33,6 +33,7 @@ pub fn determine_config() -> Result<Config, ConfigError> {
     };
      */
     let name = env::var("TEAM").unwrap_or_else(|_| "nw".to_owned());
-    config.merge(config::File::with_name(&name))?;
+    let base = "./config/";
+    config.merge(config::File::with_name(&*(base.to_owned() + &name)))?;
     Ok(config)
 }

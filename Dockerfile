@@ -16,6 +16,8 @@ COPY --from=builder /usr/local/cargo/bin/standup /usr/local/bin/standup
 
 COPY ./assets /usr/local/bin/assets
 
+COPY ./config /usr/local/bin/config
+
 EXPOSE 4200
 
 WORKDIR /usr/local/bin
