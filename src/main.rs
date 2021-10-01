@@ -1,6 +1,6 @@
 use actix_web::{App, HttpServer, HttpRequest, Result, web, HttpResponse};
 use askama::Template;
-use standup::helpers::{role_grouping};
+use standup::helpers::{role_grouping, determine_config};
 use std::env;
 
 #[derive(Template)]
@@ -10,13 +10,34 @@ struct IndexTemplate<'a> {
 }
 
 async fn index(_req: HttpRequest) -> Result<HttpResponse> {
-    // Add people to the relevant list here to add them to the board
-    let devs = vec!["Danny", "Ewan", "Dan", "Sarthak", "Don", "Sean", "Abdi"];
-    let design = vec!["Helen", "Sam", "Shail", "Jacob"];
-    let admin = vec!["Alok", "Maria"];
 
-    let people = vec![devs, design, admin];
-    let grouped_people = role_grouping(people);
+    let config = determine_config();
+    /*
+    let mut devs: Vec<Value> = config.get_array("devs").unwrap();
+    let mut design: Vec<Value> = config.get_array("design").unwrap();
+    let mut admin: Vec<Value> = config.get_array("admin").unwrap();
+    let mut new_devs: Vec<String> = vec![];
+    let mut new_design: Vec<String> = vec![];
+    let mut new_admin: Vec<String> = vec![];
+
+    for item in &mut devs {
+        new_devs.push(item.into_str().unwrap());
+    }
+
+    for item in &mut design {
+        new_design.push(item.into_str().unwrap());
+    }
+
+    for item in &mut admin {
+        new_admin.push(item.into_str().unwrap());
+    }
+     */
+
+    let devs: Vec<&str> = config.get_array("devs").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect::<Vec<&str>>();
+    let design: Vec<&str> = config.get_array("design").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect();
+    let admin: Vec<&str> = config.get_array("admin").unwrap().iter().map(|x| x.into_str().unwrap().as_str()).collect();
+
+    let grouped_people = role_grouping(vec![devs, design, admin]);
     let html = IndexTemplate {
         grouped_names: grouped_people
     }.render().unwrap();
