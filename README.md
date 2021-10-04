@@ -3,7 +3,9 @@ ___
 I'm practicing my rust & javascript by making a basic app for facilitating standups.
 It uses a simple webserver built on Rust's actix-web library and Askama for html templating. It's also set up to run in Docker, instructions to build are below.
 
-Names are hardcoded in the `main.rs` file currently as this is an MVP. Should be moved to a config file or whatever
+Names are pulled from a TOML config file in the project root (see `nw.toml` or `ta.toml` for examples)
+You need to point the program to the config either via setting a `TEAM` environment variable or by providing the filename as an argument at runtime
+e.g. `cargo run ta` will search the project root for `ta.toml` and try to read it
 ___
 # Prerequisites:
 - `make` utility (available by default on unix-like operating systems)
