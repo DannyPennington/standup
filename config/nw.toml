@@ -1,5 +1,5 @@
-devs   = ["Anusha", "Dan", "Danny", "Fraser", "Richy", "Sean", "Zak", "Abdi"]
-design = ["Helen", "Jacob", "Sam", "Shail"]
+devs   = ["Anusha", "Danny", "Fraser", "Nick", "Richy", "Sean", "Zak", "Abdi"]
+design = ["Jacob", "Matt", "Sam", "Shail"]
 admin  = ["Alok", "Maria"]
 
 team_name = "Neighbourhood Watch"
