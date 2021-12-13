@@ -23,3 +23,8 @@ release: build
 	docker tag standup:$(VERSION) registry.heroku.com/standup-nw/web
 	docker push registry.heroku.com/standup-nw/web
 	heroku container:release web -a standup-nw
+
+release_ta: build
+	docker tag standup:$(VERSION) registry.heroku.com/standup-ta/web
+	docker push registry.heroku.com/standup-ta/web
+	heroku container:release web -a standup-ta
