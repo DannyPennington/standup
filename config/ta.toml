@@ -1,5 +1,5 @@
-devs   = ["James", "John", "Manpreet", "Kannan", "Kuldeep", "Yang", "Blaine"]
-design = ["Alex", "Jacob", "Matt", "Shail", "Steven", "Stuart", "Victoria"]
+devs   = ["James", "John", "Manpreet", "Kannan", "Kuldeep", "Ryan", "Yang", "William"]
+design = ["Jacob", "Matt", "Shail", "Victoria"]
 admin  = ["Alok", "Maria"]
 
 team_name = "Team Alpha"
