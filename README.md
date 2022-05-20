@@ -19,3 +19,9 @@ make start
 This will run the docker commands required to build the container and run the server on port 4200
 
 The Makefile contains a couple of other targets which are all pretty self-explanatory, the names aren't perfect but hey ho.
+
+In order to use the release commands you must be signed in to the Heroku CLI and the Heroku container repository
+~~~
+heroku login
+heroku container:login
+~~~
